@@ -1,1 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Pedidos</title>
+</head>
+<body>
+<h1>Realizar Pedido</h1>
+<form id="orderForm">
+    <label for="description">Descripción del Pedido:</label>
+    <input type="text" id="description" name="description" required><br><br>
+
+    <label for="amount">Cantidad:</label>
+    <input type="number" step="0.01" id="amount" name="amount" required><br><br>
+
+    <button type="submit">Enviar Pedido</button>
+</form>
+
+<script>
+    document.getElementById('orderForm').addEventListener('submit', async (e) => {
+        e.preventDefault(); // Evitar que la página se recargue
+
+
+        const description = document.getElementById('description').value;
+        const amount = parseFloat(document.getElementById('amount').value);
+
+        // Enviar los datos al backend
+        const response = await fetch('http://localhost:8080/pedidos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ description, amount }),
+        });
+
+        if (response.ok) {
+            alert('Pedido enviado con éxito.');
+            document.getElementById('orderForm').reset(); // Limpiar el formulario
+        } else {
+            alert('Hubo un error al enviar el pedido.');
+        }
+    });
+</script>
+</body>
+</html>
 

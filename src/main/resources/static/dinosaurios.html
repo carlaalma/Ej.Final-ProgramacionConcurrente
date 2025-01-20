@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinosaurios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            margin-top: 50px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Monitoreo de Dinosaurios</h1>
+<ul id="dinosaurios-lista"></ul>
+
+<script>
+    fetch('/dinosaurios')
+        .then(response => response.json())
+        .then(data => {
+            const lista = document.getElementById('dinosaurios-lista');
+            data.forEach(dino => {
+                const li = document.createElement('li');
+                li.innerText = `${dino.id} - ${dino.nombre}`;
+                lista.appendChild(li);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+</script>
+</body>
+</html>
