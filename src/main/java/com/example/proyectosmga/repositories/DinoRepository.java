@@ -1,4 +1,7 @@
 package com.example.proyectosmga.repositories;
 
-public class DinoRepository {
+import com.example.proyectosmga.models.Dinosaurio;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DinoRepository  extends JpaRepository<Dinosaurio, Long> {
 }

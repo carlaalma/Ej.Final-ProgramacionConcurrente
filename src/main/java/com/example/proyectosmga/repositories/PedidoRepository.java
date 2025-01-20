@@ -1,4 +1,7 @@
 package com.example.proyectosmga.repositories;
 
-public class PedidoRepository {
+import com.example.proyectosmga.models.Pedido;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PedidoRepository extends JpaRepository<Pedido, Long>  {
 }
