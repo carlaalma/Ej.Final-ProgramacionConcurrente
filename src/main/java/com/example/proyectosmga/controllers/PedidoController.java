@@ -14,12 +14,10 @@ public class PedidoController {
     @Autowired
     private PedidoService pedidoService;
 
-
     @PostMapping
-    public Pedido createOrder(@RequestBody Pedido pedido) {
-        System.out.println("Descripción: " + pedido.getDescripcion());
-        System.out.println("Cantidad: " + pedido.getTotal());
-        return pedidoService.createPedido(pedido);
+    public ResponseEntity<String> crearPedido(@RequestBody Pedido pedido) {
+        pedidoService.createPedido(pedido);
+        return ResponseEntity.ok("Pedido creado y evento enviado.");
     }
 
     @GetMapping

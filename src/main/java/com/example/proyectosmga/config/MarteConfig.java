@@ -10,9 +10,14 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.test.JobRepositoryTestUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.batch.test.JobLauncherTestUtils;
+
+
 
 @Configuration
 @EnableBatchProcessing
@@ -61,6 +66,16 @@ public class MarteConfig {
     public ItemWriter<DatosSensor> writer() {
         return items -> items.forEach(item -> System.out.println("Procesado: " + item));
     }
+
+    @Bean
+    public JobLauncherTestUtils jobLauncherTestUtils() {
+        return new JobLauncherTestUtils();
+    }
+    @Bean
+    public JobRepositoryTestUtils jobRepositoryTestUtils(JobRepository jobRepository) {
+        return new JobRepositoryTestUtils(jobRepository);
+    }
+
 }
 
 

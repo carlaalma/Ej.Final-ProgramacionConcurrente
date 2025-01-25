@@ -13,6 +13,11 @@ public class Pedido {
     @Column(nullable = false)
     private double total;
 
+
+    @Version
+    private Integer version;
+
+
     public Pedido() {
     }
 
