@@ -1,5 +1,6 @@
 package com.example.proyectosmga.controllers;
 
+import com.example.proyectosmga.services.ModuloCentralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

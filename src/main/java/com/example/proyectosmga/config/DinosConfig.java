@@ -5,6 +5,5 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 @Configuration
 @EnableWebFlux
 public class DinosConfig {
-    // Configuración adicional para WebFlux si es necesaria
 }
 

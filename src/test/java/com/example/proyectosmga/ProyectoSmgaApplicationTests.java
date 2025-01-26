@@ -115,4 +115,11 @@ class ProyectoSmgaApplicationTests {
         analisisDatosService.shutdown();
     }
 
+    @Test
+    public void testProcesarAlerta() {
+        SecurityService seguridadService = new SecurityService();
+        seguridadService.performTask("Alerta de seguridad");
+    }
+
+
 }

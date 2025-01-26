@@ -2,12 +2,15 @@ package com.example.proyectosmga.services;
 
 import com.example.proyectosmga.EventPublisher;
 
-public class ModuloCentralServices {
+public class ModuloCentralService {
 
-    private final EventPublisher publisher;
+    private EventPublisher publisher;
 
-    public ModuloCentralServices(EventPublisher publisher) {
+    public ModuloCentralService(EventPublisher publisher) {
         this.publisher = publisher;
+    }
+
+    public ModuloCentralService() {
     }
 
     public void procesarEventos(String subsistemaOrigen, String evento) {
