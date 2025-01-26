@@ -2,10 +2,7 @@ package com.example.proyectosmga;
 
 import com.example.proyectosmga.models.Dinosaurio;
 import com.example.proyectosmga.models.Pedido;
-import com.example.proyectosmga.services.DinoService;
-import com.example.proyectosmga.services.HechizoService;
-import com.example.proyectosmga.services.MarteService;
-import com.example.proyectosmga.services.PedidoService;
+import com.example.proyectosmga.services.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
-
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -33,6 +32,9 @@ class ProyectoSmgaApplicationTests {
 
     @Autowired
     private HechizoService hechizoService;
+    @Autowired
+    private AnalisisDatosService analisisDatosService;
+
 
     @Test
     void contextLoads() {
@@ -81,4 +83,36 @@ class ProyectoSmgaApplicationTests {
         marteService.processData();
         Assertions.assertTrue(true); // Placeholder para verificar el procesamiento
     }
+
+    @Test
+    public void testAspectExecution() {
+        webTestClient.get().uri("/perform?task=aspectTest")
+                .exchange()
+                .expectStatus().isOk();
+    }
+
+    @Test
+    public void testConcurrentRequests() throws InterruptedException {
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+
+        for (int i = 0; i < 10; i++) {
+            executor.submit(() -> {
+                webTestClient.get().uri("/perform?task=concurrentTest")
+                        .exchange()
+                        .expectStatus().isOk();
+            });
+        }
+
+        executor.shutdown();
+        if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            throw new InterruptedException("Timeout while waiting for threads to finish.");
+        }
+    }
+
+    @Test
+    void testProcesarDatos() {
+        analisisDatosService.procesarDatos("Datos de prueba");
+        analisisDatosService.shutdown();
+    }
+
 }
